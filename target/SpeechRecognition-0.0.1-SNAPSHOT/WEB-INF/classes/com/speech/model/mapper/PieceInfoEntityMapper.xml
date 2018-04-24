@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.speech.model.mapper.PieceInfoEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.speech.model.entity.PieceInfoEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="piece_name" property="pieceName" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="piece_content" property="pieceContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_id,piece_name,path,piece_content
+  </sql>
+ 
+  <select id="selectPieceByFileId" resultMap="BaseResultMap" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from piece_info
+    WHERE file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getPieceByPieceId" resultMap="BaseResultMap" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from piece_info
+    where id =#{id,jdbcType=INTEGER} and file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getBig" resultType="java.lang.Integer">
+    select id from piece_info WHERE file_id = #{fileId,jdbcType=INTEGER} ORDER BY id desc LIMIT 1
+  </select>
+  
+  <select id="getSmall" resultType="java.lang.Integer">
+    select id from piece_info WHERE file_id = #{fileId,jdbcType=INTEGER} ORDER BY id asc LIMIT 1
+  </select>
+  
+  <select id="getPieceById" resultMap="BaseResultMap" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from piece_info
+    where id =#{id,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.speech.model.mapper.FileInfoEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.speech.model.entity.FileInfoEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="filename" property="fileName" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="up_date" property="upDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="filetime" property="filetime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, filename,size,path,up_date,type,number,status,content,md5,filetime
+  </sql>
+ 
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file_info
+  </select>
+  
+  <insert id="insert" parameterType="com.speech.model.entity.FileInfoEntity" useGeneratedKeys="true" keyProperty="id">
+    insert into file_info (filename, size, path, up_date, type, number, status, content, md5,filetime)
+    values (#{fileName,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, 
+      #{upDate,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR},#{filetime,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectCountByMd5" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file_info
+    where md5 =#{md5,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectFileById" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file_info
+    where id =#{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectFile" resultMap="BaseResultMap" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from file_info
+    limit #{pageIndex,jdbcType=INTEGER},#{pageNum,jdbcType=INTEGER}
+  </select>
+  
+</mapper>
