@@ -41,4 +41,22 @@
     where id =#{id,jdbcType=INTEGER}
   </select>
   
+  <insert id="insert" parameterType="com.speech.model.entity.PieceInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO piece_info (
+	file_id,
+	piece_name,
+	path,
+	piece_content
+	)
+	VALUES
+	(
+		#{fileId},
+		#{pieceName},
+		#{path},
+		#{pieceContent}
+	)
+
+  </insert>
+  
+  
 </mapper>

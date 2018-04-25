@@ -13,6 +13,8 @@ D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\util\FileUtils.java
 D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\controller\SpeechController.java
 D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\dbutil\JdbcContextHolder.java
 D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\commandinfo\FileInfo.java
+D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\util\GetFileNameUtil.java
 D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\util\DateUtil.java
 D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\SpeechServer.java
 D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\util\SpeechUtil.java
+D:\sdk_demo\SpeechRecognition\src\main\java\com\speech\util\FileCutUtil.java

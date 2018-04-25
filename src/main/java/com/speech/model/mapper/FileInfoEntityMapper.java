@@ -1,5 +1,6 @@
 package com.speech.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,6 @@ public interface FileInfoEntityMapper {
     FileInfoEntity selectFileById(@Param(value="id")Integer id);
     
     FileInfoEntity selectFile(@Param(value="pageIndex")Integer pageIndex,@Param(value="pageNum")Integer pageNum);
+    
+    public void updateFileNumber(HashMap map);
 }

@@ -58,5 +58,12 @@
 
   </insert>
   
+  <select id="getCountByFileId" resultType="java.lang.Integer" >
+    select 
+    count(id)
+    from piece_info
+    where file_id =#{fileId,jdbcType=INTEGER}
+  </select>
+  
   
 </mapper>

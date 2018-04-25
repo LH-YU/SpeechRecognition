@@ -20,7 +20,7 @@ public class FileCutUtil {
     public native int setFile(char[] filename,char[] output_filename_prefix,char[] output_dir);  
     protected native void finalize();  
       
-	public static void main(String[] args) {  
+	/*public static void main(String[] args) {  
 	    	
 	    	//先创建相应的目录 再传参目录
 	    	String file = "16k_1.pcm";
@@ -41,5 +41,5 @@ public class FileCutUtil {
 	    	int res = fileCut.setFile(filename, output_filename_prefix,output_dir);
 	
 	    	System.out.println("执行结束，res:"+res);  
-	    }  
+	    }  */
 	}

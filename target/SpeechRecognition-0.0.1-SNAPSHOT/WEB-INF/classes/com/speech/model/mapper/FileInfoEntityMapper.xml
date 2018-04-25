@@ -52,4 +52,8 @@
     limit #{pageIndex,jdbcType=INTEGER},#{pageNum,jdbcType=INTEGER}
   </select>
   
+   <update id="updateFile" parameterType="java.lang.Integer">
+    update  file_info set status = 1 where id =#{id,jdbcType=INTEGER}
+  </update>
+  
 </mapper>

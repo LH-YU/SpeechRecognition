@@ -147,7 +147,6 @@ public class SpeechController {
 			fileInfo.setMd5(detectionMd5);
 			fileInfo.setNumber(0);
 			if (su.equals("wav") || su.equals("WAV")) {
-				System.out.println("1");
 				fileInfo.setFiletime(FileSizeUtil.countFileSize("speech/"+newfilename));
 			}
 			
@@ -202,11 +201,13 @@ public class SpeechController {
 	    	//如果res=0 切片结束 根据路径和文件名读取切片后的文件进行语音识别并且入库
 	    	if(res != 0){
 	    		System.out.println("切片失败！");
+	    		res = fileCut.setFile(filename, output_filename_prefix,output_dir);
 	    	}
 	    	String[] fileName = GetFileNameUtil.getFileName(realpath);
 	    	List<String> fileNameList = Arrays.asList(fileName);
 	    	
 	    	PieceInfoEntity piece = new PieceInfoEntity();
+	    	String content = "";
 	    	for(String newName : fileNameList){
 	    		
 	    		File dir2 = new File(realpath+"\\"+newName);   
@@ -217,6 +218,7 @@ public class SpeechController {
 	    		String result = "";
 	    		if( ja!=null){
 	    			result = ja.toString();
+	    			result = result.substring(2, result.length()-2);
 	    		}
 	    		
 	    		piece.setFileId(fileId);
@@ -224,13 +226,42 @@ public class SpeechController {
 	    		piece.setPath(realpath+"\\"+newName);
 	    		piece.setPieceContent(result);
 	    		pieceInfoEntityMapper.insert(piece);
+	    		content += result;
 	    		
 	    	}
-	    	fileInfoEntityMapper.updateFile(fileId);
+	    	if(res == 0){
+	    		//切片成功 记录fileinfo表中切片数量 语音识别信息
+	    		int number = pieceInfoEntityMapper.getCountByFileId(fileId);
+	    		HashMap map = new HashMap();
+	    		map.put("number", number);
+	    		map.put("fileId", fileId);
+	    		map.put("content", content);
+	    		fileInfoEntityMapper.updateFileNumber(map);
+	    		//切片成功 修改fileinfo表中文件识别状态
+	    		fileInfoEntityMapper.updateFile(fileId);
+	    		
+	    	}
 	    	
 		}else {
 			
-			
+			//上传语音文件不需要进行切片处理 直接进行语音识别并记录相关信息 （识别结果：result 切片数量：1）
+			File dir2 = new File(fileinfo.getPath());   
+    		JSONObject json = SpeechUtil.client.asr(dir2.getPath(), "pcm", 16000, null);
+    		
+    		//语音识别 获取json对象 从json中获取识别结果
+    		JSONArray ja = json.optJSONArray("result");
+    		String result = "";
+    		if( ja!=null){
+    			result = ja.toString();
+    		}
+    		//记录语音识别后相关信息
+    		HashMap map = new HashMap();
+    		map.put("number", 1);
+    		map.put("content", result);
+    		map.put("fileId", fileId);
+    		fileInfoEntityMapper.updateFileNumber(map);
+    		//修改文件识别状态
+    		fileInfoEntityMapper.updateFile(fileId);
 			
 		}
 		return new ModelAndView("redirect:./list");

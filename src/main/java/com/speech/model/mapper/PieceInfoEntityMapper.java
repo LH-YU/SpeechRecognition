@@ -24,4 +24,6 @@ public interface PieceInfoEntityMapper {
     Integer getSmall(@Param(value="fileId")Integer fileId);
     
     PieceInfoEntity getPieceById(@Param(value="id")Integer id);
+    
+    Integer getCountByFileId(@Param(value="fileId")Integer fileId);
 }

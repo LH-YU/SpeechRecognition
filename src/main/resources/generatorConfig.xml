@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 数据库驱动位置 -->
+	<classPathEntry
+		location="D:\work_tools\jar\mysql-connector-java-5.1.38.jar" />
+	<context id="context">
+
+		<commentGenerator>
+			<!-- 是否去掉自动生成文件的时间戳 -->
+			<property name="suppressDate" value="false" />
+			<!-- 是否去掉自动生成文件的注释 -->
+			<property name="suppressAllComments" value="false" />
+		</commentGenerator>
+
+		<jdbcConnection
+		 	driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://10.3.24.17:3306/sdk_demo"
+			userId="root"
+			password="123456" />
+		<javaModelGenerator
+			targetPackage="com.speech.model.entity"
+			targetProject="SpeechRecognition/src/main/java" />
+		<sqlMapGenerator
+			targetPackage="com.speech.model.mapper"
+			targetProject="SpeechRecognition/src/main/java" />
+		<javaClientGenerator
+			targetPackage="com.speech.model.mapper"
+			targetProject="SpeechRecognition/src/main/java" 
+			type="XMLMAPPER" />
+		<table 
+			schema="RuleDef" tableName="rule_def">
+		</table>
+	</context>
+</generatorConfiguration>

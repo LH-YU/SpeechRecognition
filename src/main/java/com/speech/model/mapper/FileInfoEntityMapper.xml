@@ -56,4 +56,10 @@
     update  file_info set status = 1 where id =#{id,jdbcType=INTEGER}
   </update>
   
+  <update id="updateFileNumber" parameterType="map">
+    update  file_info set number = #{number,jdbcType=INTEGER},content = #{content,jdbcType=VARCHAR} where id =#{fileId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
 </mapper>
